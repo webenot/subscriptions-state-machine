@@ -3,7 +3,6 @@ import type Stripe from 'stripe';
 
 import { LoggerService } from '~/logger/logger.service';
 import { ConfigurationService } from '~/modules/configurations/configuration.service';
-import { PaymentNeedsConfirmationFromEmailException } from '~/modules/managers/stripe/stripe-invoices-manager/exceptions';
 
 import { StripeRequestException } from './exceptions';
 import { StripeProviderService } from './stripe.service';
@@ -32,7 +31,7 @@ export class StripeInvoiceProviderService extends StripeProviderService {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.code === 'invoice_payment_intent_requires_action') {
-        throw new PaymentNeedsConfirmationFromEmailException(error.message);
+        throw new Error(error.message);
       }
       throw new StripeRequestException(error.message, error.code, error.decline_code);
     }

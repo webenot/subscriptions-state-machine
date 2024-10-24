@@ -9,7 +9,7 @@
     "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": false,
     "lib": [
       "ES2022"
     ],

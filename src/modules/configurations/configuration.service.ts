@@ -5,19 +5,18 @@ import * as fs from 'fs';
 import type { RedisOptions } from 'ioredis';
 import * as path from 'path';
 
-import { LoggerService } from '../../logger/logger.service';
-import { RmqConfiguration } from '../../providers/rmq/rmq-configuration';
+import { LoggerService } from '~/logger/logger.service';
+
 import { convertStringToBoolean } from '../utils/string';
 import { ConfigurationDto } from './dtos/configuration.dto';
 import type { IDatabaseOptions } from './types';
 
 @Injectable()
-export class ConfigurationService extends RmqConfiguration {
+export class ConfigurationService {
   private readonly logger = new LoggerService('CONFIGURATION');
-  protected override readonly configuration: ConfigurationDto;
+  private readonly configuration: ConfigurationDto;
 
   constructor() {
-    super();
     const configuration = new ConfigurationDto();
 
     Object.assign(configuration, { ...ConfigurationService.getDotenvConfiguration(), ...process.env });
@@ -39,7 +38,7 @@ export class ConfigurationService extends RmqConfiguration {
     return fs.existsSync(ENV_PATH) ? dotenv.parse(fs.readFileSync(ENV_PATH)) : {};
   }
 
-  public override get<K extends keyof ConfigurationDto>(key: K): ConfigurationDto[K] {
+  public get<K extends keyof ConfigurationDto>(key: K): ConfigurationDto[K] {
     if (this.configuration[key] && !(this.configuration[key] === 'null')) {
       return this.configuration[key];
     }
@@ -54,6 +53,12 @@ export class ConfigurationService extends RmqConfiguration {
       password: this.get('DB_PASSWORD'),
       database: this.get('DB_NAME'),
       logging: convertStringToBoolean(this.get('DB_LOGGING')),
+      ssl:
+        this.get('NODE_ENV').toLowerCase() === 'local'
+          ? false
+          : {
+              ca: this.getAwsRdsCertificate(),
+            },
     };
   }
 
@@ -70,5 +75,9 @@ export class ConfigurationService extends RmqConfiguration {
     return validationErrors
       .map((validationError) => ` ${Object.values(validationError.constraints || {})},`)
       .join('\n');
+  }
+
+  private getAwsRdsCertificate(): string {
+    return Buffer.from(this.get('AWS_RDS_SSL_CERTIFICATE'), 'base64').toString('ascii').replace(/\\n/g, '\n');
   }
 }

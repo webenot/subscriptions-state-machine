@@ -1,7 +1,8 @@
+import { STRIPE_API_VERSION } from '@common/stripe';
 import Stripe from 'stripe';
 
 import { LoggerService } from '~/logger/logger.service';
-import type { ConfigurationService } from '~/modules/configurations/configuration.service';
+import { ConfigurationService } from '~/modules/configurations/configuration.service';
 
 export class StripeProviderService {
   protected readonly stripe: Stripe;
@@ -9,9 +10,6 @@ export class StripeProviderService {
 
   constructor(protected readonly configurationService: ConfigurationService) {
     this.logger = new LoggerService(StripeProviderService.name);
-    this.stripe = new Stripe(
-      this.configurationService.getStripeSecretKey(),
-      this.configurationService.getStripeConfig()
-    );
+    this.stripe = new Stripe(this.configurationService.get('STRIPE_SECRET_KEY'), { apiVersion: STRIPE_API_VERSION });
   }
 }

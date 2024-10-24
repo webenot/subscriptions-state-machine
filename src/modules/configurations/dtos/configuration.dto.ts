@@ -1,6 +1,7 @@
 import { IsBooleanString, IsEnum, IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
 import { LogLevelEnum } from '~/logger/enums';
+
 import { PlatformsEnum } from '../../utils/enums';
 
 export class ConfigurationDto {
@@ -10,11 +11,11 @@ export class ConfigurationDto {
 
   @IsNotEmpty()
   @IsString()
-  FE_BASE_APP_URL: string;
+  NODE_ENV: string;
 
   @IsNotEmpty()
   @IsString()
-  NODE_ENV: string;
+  WEB_APP_BASE_URL: string;
 
   @IsNotEmpty()
   @IsEnum(PlatformsEnum)
@@ -50,6 +51,10 @@ export class ConfigurationDto {
   @IsNotEmpty()
   @IsBooleanString()
   DB_LOGGING: string;
+
+  @IsNotEmpty()
+  @IsString()
+  AWS_RDS_SSL_CERTIFICATE: string;
 
   /**
    * Redis's section
@@ -94,4 +99,8 @@ export class ConfigurationDto {
   @IsNotEmpty()
   @IsString()
   STRIPE_PRICE_ID: string;
+
+  @IsNotEmpty()
+  @IsString()
+  STRIPE_SECRET_KEY: string;
 }

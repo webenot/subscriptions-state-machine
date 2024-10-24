@@ -36,7 +36,7 @@ services:
       - ${REDIS_PORT}:6379
   postgres:
     container_name: subscriptions-state-machine-postgres
-    image: postgres:13
+    image: postgres:16
     networks:
       - app-network
     environment:

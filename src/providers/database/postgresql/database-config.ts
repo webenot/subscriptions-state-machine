@@ -16,6 +16,7 @@ export const databaseOptions: DataSourceOptions = {
   migrations,
   migrationsRun: true,
   synchronize: false,
+  migrationsTransactionMode: 'each',
   ...configurationService.getDBConfiguration(),
 };
 

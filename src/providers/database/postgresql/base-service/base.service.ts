@@ -9,6 +9,7 @@ import {
   Repository,
   UpdateResult,
 } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export class BaseService<T extends ObjectLiteral> {
   protected entity: EntityTarget<T>;
@@ -49,7 +50,7 @@ export class BaseService<T extends ObjectLiteral> {
 
   public async update(
     id: string | string[] | FindOptionsWhere<T>,
-    data: DeepPartial<T>,
+    data: QueryDeepPartialEntity<T>,
     entityManager?: EntityManager
   ): Promise<UpdateResult> {
     const repository = this.getRepository(entityManager);

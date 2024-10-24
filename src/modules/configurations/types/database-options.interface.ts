@@ -5,4 +5,5 @@ export interface IDatabaseOptions {
   password: string;
   database: string;
   logging: boolean;
+  ssl: boolean | { ca: string };
 }
