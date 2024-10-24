@@ -25,7 +25,8 @@
     "typeorm:generate": "bash scripts/postgresql/migration-generate.sh",
     "typeorm:create": "bash scripts/postgresql/migration-create.sh",
     "typeorm:run": "bash scripts/postgresql/migration-run.sh",
-    "typeorm:revert": "bash scripts/postgresql/migration-revert.sh"
+    "typeorm:revert": "bash scripts/postgresql/migration-revert.sh",
+    "prepare": "husky"
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.677.0",

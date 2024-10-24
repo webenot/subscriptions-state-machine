@@ -21,7 +21,7 @@ import { SqsProducerService } from './sqs-producer.service';
               name: configurationService.get('AWS_STRIPE_WEBHOOK_EVENTS_QUEUE_NAME'),
               queueUrl: configurationService.get('AWS_STRIPE_WEBHOOK_EVENTS_QUEUE_URL'),
               region: AWS_REGION,
-            }
+            },
           ],
           producers: [],
         };
