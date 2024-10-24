@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "stripe-webhook-events-example"
+s3_bucket = "subscriptions-example-lambdas"
+s3_prefix = "stripe-webhook-events-example"
+region = "us-east-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM"
+disable_rollback = true
+image_repositories = []

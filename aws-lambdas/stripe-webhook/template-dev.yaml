@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >-
+  stripe-webhook-events-example-dev
+
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Parameters:
+  ServicePlatform:
+    Type: String
+  StripeSecretKey:
+    Type: String
+  StripeWebhookSecret:
+    Type: String
+
+Resources:
+  StripeWebhookEventsSQS:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: 'stripe-webhook-events-example-queue-dev'
+  StripeWebhookEventsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${AWS::StackName}-role-dev'
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - !Sub lambda.amazonaws.com
+                - !Sub vpc-flow-logs.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: !Sub '${AWS::StackName}-policy-sqs-dev'
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "sqs:SendMessage"
+                Resource:
+                  - !Sub '${StripeWebhookEventsSQS.Arn}'
+        - PolicyName: !Sub '${AWS::StackName}-policy-logs-dev'
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                  - "logs:DescribeLogGroups"
+                  - "logs:DescribeLogStreams"
+                Resource:
+                  - !Sub "arn:aws:logs:*:*:*"
+  StripeWebhook:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: Process stripe webhook.
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Handler: build/cloud-functions/stripe-webhook/src-ts/handler.handleWebhook
+      Role: !GetAtt StripeWebhookEventsRole.Arn
+      Environment:
+        Variables:
+          SERVICE_PLATFORM: !Ref ServicePlatform
+          STRIPE_SECRET_KEY: !Ref StripeSecretKey
+          STRIPE_WEBHOOK_SECRET: !Ref StripeWebhookSecret
+          SQS_DESTINATION_QUEUE_URL: !Ref StripeWebhookEventsSQS
+      MemorySize: 256
+      Timeout: 30
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowMethods:
+            - "POST"
+          AllowOrigins:
+            - "*"
+        InvokeMode: BUFFERED

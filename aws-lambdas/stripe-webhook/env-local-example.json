@@ -1,0 +1,10 @@
+{
+  "Parameters": {
+    "SERVICE_PLATFORM": "local",
+    "STRIPE_SECRET_KEY": "Stripe secret key",
+    "STRIPE_WEBHOOK_SECRET": "Stripe webhook secret",
+    "SQS_DESTINATION_QUEUE_URL": "https://sqs.<REGION>.amazonaws.com/<ACCOUNT_ID>/stripe-webhook-events-example-queue",
+    "_X_AMZN_TRACE_ID": "123",
+    "LOG_LEVEL": "debug"
+  }
+}
