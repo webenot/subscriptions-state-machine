@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "src/**/*.spec.ts",
+    "build"
+  ],
+  "compilerOptions": {
+    "sourceMap": true,
+    "noEmit": false,
+    "incremental": true,
+    "tsBuildInfoFile": "./build/tsbuildinfo.json",
+    "outDir": "build",
+    "rootDir": "./"
+  }
+}
