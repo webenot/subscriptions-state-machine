@@ -27,7 +27,7 @@ export class ConfigurationService {
         'Configuration invalid',
         `Validation errors:\n${this.extractValidationErrorMessages(validationResult)}`
       );
-      throw new Error(`Configuration invalid\n${validationResult}`);
+      throw new Error(`Configuration invalid\n${validationResult.join(', ')}`);
     }
 
     this.configuration = configuration;
@@ -73,7 +73,7 @@ export class ConfigurationService {
 
   private extractValidationErrorMessages(validationErrors: ValidationError[]): string {
     return validationErrors
-      .map((validationError) => ` ${Object.values(validationError.constraints || {})},`)
+      .map((validationError) => ` ${Object.values(validationError.constraints || {}).join(', ')},`)
       .join('\n');
   }
 

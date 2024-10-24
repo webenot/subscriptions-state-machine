@@ -27,6 +27,7 @@ export function getValueByKey<T>(object: object | undefined, key: string): T | n
   // eslint-disable-next-line @typescript-eslint/no-explicit-any,unicorn/no-null
   let value: any = null;
   if (!object) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return value;
   }
   const keys = key.split('.');
@@ -37,5 +38,6 @@ export function getValueByKey<T>(object: object | undefined, key: string): T | n
     value = value ? value[`${separateKey}`] : object[`${separateKey}`];
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return value;
 }

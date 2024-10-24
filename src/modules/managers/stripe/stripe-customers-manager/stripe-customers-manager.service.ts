@@ -23,7 +23,7 @@ export class StripeCustomersManagerService {
 
     const stripeCustomer = await this.stripeCustomerProviderService.createCustomer({
       email: user.email,
-      name: `${user.firstName} ${user.lastName}`,
+      name: `${user.firstName as string} ${user.lastName as string}`,
     });
     this.logger.debug(this.getOrCreateUserCustomer.name, 'Stripe customer created', stripeCustomer);
 

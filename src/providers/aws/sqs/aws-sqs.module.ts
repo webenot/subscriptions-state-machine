@@ -13,7 +13,7 @@ import { SqsProducerService } from './sqs-producer.service';
       imports: [ConfigurationModule],
       inject: [ConfigurationService],
       useFactory: (configurationService: ConfigurationService) => {
-        const AWS_REGION = configurationService.get('AWS_REGION') as string;
+        const AWS_REGION = configurationService.get('AWS_REGION');
 
         return {
           consumers: [

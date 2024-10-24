@@ -51,4 +51,5 @@ function setupBaseConfigurations(app: INestApplication): void {
   app.useGlobalInterceptors(new LoggerInterceptor());
 }
 
-bootstrap();
+// eslint-disable-next-line no-console
+bootstrap().catch(console.error);

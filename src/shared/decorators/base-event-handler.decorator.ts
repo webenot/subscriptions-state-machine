@@ -6,6 +6,7 @@ export function BaseEventHandlerDecorator(metadataKey: string, eventType: string
 
     // It then adds the current handler to the array of handlers. Each handler is an object
     // that contains the eventType and the methodName (the name of the method decorated by this decorator).
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     handlers.push({
       eventType,
       methodName: propertyKey,

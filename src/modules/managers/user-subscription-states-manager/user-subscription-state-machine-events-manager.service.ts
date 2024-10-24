@@ -254,7 +254,7 @@ export class UserSubscriptionStateMachineEventsManagerService {
 
     const newStripeSubscription = (await this.stripeSubscriptionProviderService.create({
       customer: stripeCustomerId,
-      items: [{ price: this.configuration.get('STRIPE_PRICE_ID') as string }],
+      items: [{ price: this.configuration.get('STRIPE_PRICE_ID') }],
       payment_behavior: 'default_incomplete',
       payment_settings: { save_default_payment_method: 'on_subscription' },
       metadata: { product: JSON.stringify({ ..._.pick(data.product, ['id', 'sku', 'name']) }) },

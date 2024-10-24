@@ -47,6 +47,7 @@ export class SubscriptionsService extends BaseService<SubscriptionEntity> {
       SubscriptionStatusEnum.EXPIRED,
     ]);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return subscription || null;
   }
 }

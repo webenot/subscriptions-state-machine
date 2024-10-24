@@ -11,6 +11,7 @@ export abstract class BaseSqsEventsHandlerService {
 
   onModuleInit(): void {
     const handlers = Reflect.getMetadata(this.key, this.constructor) || [];
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     this.logger.info(`Service initialized with ${handlers.length} handlers`);
   }
 
@@ -21,6 +22,7 @@ export abstract class BaseSqsEventsHandlerService {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     if (eventHandler && typeof this[eventHandler.methodName] === 'function') await this[eventHandler.methodName](event);
   }
 

@@ -64,6 +64,10 @@ module.exports = {
     'no-duplicate-imports': 'error',
     '@typescript-eslint/quotes': ['error', 'single', { allowTemplateLiterals: true }],
     '@typescript-eslint/promise-function-async': 'error',
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/require-await': 'warn',
+    '@typescript-eslint/no-unsafe-argument': 'warn',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/naming-convention': [
       'error',

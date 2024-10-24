@@ -23,11 +23,13 @@ export class StateMachine<TState extends string, TData> {
     if (handlerName && typeof target[handlerName] === 'function') {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      // eslint-disable-next-line security/detect-object-injection
+      // eslint-disable-next-line max-len
+      // eslint-disable-next-line security/detect-object-injection,@typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call
       return await target[handlerName](this.currentState, event.data);
     }
 
     throw new ForbiddenStateMachineActionException(
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `Not allowed event [${event.type}] for current state [${this.currentState.state}]`
     );
   }
