@@ -34,8 +34,6 @@ export class UserSubscriptionStateMachineEventsManagerService {
     currentState: UserSubscriptionState,
     _event: UserSubscriptionData<ICreateManualSubscriptionData>
   ): Promise<UserSubscriptionState> {
-    if (!currentState.data.subscription) return currentState;
-
     return {
       state: UserSubscriptionStatesEnum.ACTIVE_MANUAL,
       data: { ...currentState.data },
