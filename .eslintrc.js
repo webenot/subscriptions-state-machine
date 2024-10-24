@@ -4,6 +4,12 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
     ecmaVersion: 2020,
+    tsconfigRootDir: './',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
   },
   plugins: [
     '@typescript-eslint/eslint-plugin',
@@ -17,6 +23,7 @@ module.exports = {
   ],
   extends: [
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:@darraghor/nestjs-typed/recommended',
     'plugin:security/recommended',
     'plugin:import/typescript',

@@ -40,7 +40,8 @@ export class UserSubscriptionStatesManagerService {
   }
 
   onModuleInit(): void {
-    const handlers = Reflect.getMetadata(USER_SUBSCRIPTION_STATE_MACHINE_HANDLERS_KEY, this.constructor) || {};
+    const handlers: object = (Reflect.getMetadata(USER_SUBSCRIPTION_STATE_MACHINE_HANDLERS_KEY, this.constructor) ||
+      {}) as object;
     this.logger.info(`Service initialized with ${Object.keys(handlers).length} handlers`);
   }
 
@@ -54,6 +55,7 @@ export class UserSubscriptionStatesManagerService {
       return await machine.transitionTo(event, this);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       this.logger.error(error.message, error.trace);
       if (error instanceof ForbiddenStateMachineActionException) {
         return machine.currentState;
