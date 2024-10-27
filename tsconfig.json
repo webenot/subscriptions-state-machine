@@ -26,8 +26,7 @@
     "paths": {
       "~/*": [
         "./src/*"
-      ],
-      "@common/*": ["./common/*"]
+      ]
     },
     "skipLibCheck": true,
     "strict": true,

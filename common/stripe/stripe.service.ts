@@ -24,7 +24,7 @@ export class StripeService {
     } catch (error) {
       if (error instanceof Stripe.errors.StripeSignatureVerificationError) {
         // eslint-disable-next-line unicorn/prefer-type-error
-        throw new Error('StripeSignatureVerificationError');
+        throw new Error('StripeSignatureVerificationError', error);
       }
 
       throw error;

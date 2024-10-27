@@ -1,8 +1,9 @@
-import { STRIPE_API_VERSION } from '@common/stripe';
 import Stripe from 'stripe';
 
 import { LoggerService } from '~/logger/logger.service';
 import { ConfigurationService } from '~/modules/configurations/configuration.service';
+
+import { STRIPE_API_VERSION } from '../../../common/stripe';
 
 export class StripeProviderService {
   protected readonly stripe: Stripe;
