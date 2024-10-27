@@ -1,0 +1,6 @@
+{
+  "ServicePlatform": "aws",
+  "StripeSecretKey": "Stripe secret key",
+  "StripeWebhookSecret": "Stripe webhook secret",
+  "StripeWebhookEventsSQS": "https://sqs.<REGION>.amazonaws.com/<ACCOUNT_ID>/stripe-webhook-events-example-queue"
+}
