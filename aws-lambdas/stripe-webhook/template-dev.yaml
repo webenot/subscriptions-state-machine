@@ -63,7 +63,7 @@ Resources:
       Runtime: nodejs20.x
       Architectures:
         - x86_64
-      Handler: build/cloud-functions/stripe-webhook/src-ts/handler.handleWebhook
+      Handler: build/aws-lambdas/stripe-webhook/src-ts/handler.handleWebhook
       Role: !GetAtt StripeWebhookEventsRole.Arn
       Environment:
         Variables:

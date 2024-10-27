@@ -1,6 +1,7 @@
 import type { LoggerService as LoggerServiceInterface } from '@nestjs/common/services/logger.service';
 
-import { EMPTY_STRING } from '../modules/utils/constants';
+import { EMPTY_STRING } from '~/modules/utils/constants';
+
 import { LogLevelEnum } from './enums';
 import { logger } from './logger';
 

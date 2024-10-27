@@ -1,4 +1,3 @@
-import { EMPTY_STRING } from '@common/utils/constants';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import type { EntityManager, Repository } from 'typeorm';
@@ -6,6 +5,7 @@ import type { EntityManager, Repository } from 'typeorm';
 import { BaseService } from '~/modules/fundamentals/base/base.service';
 import { DatabaseTablesEnum } from '~/providers/database/enums';
 
+import { EMPTY_STRING } from '../../../../common/utils/constants';
 import { SubscriptionPlatformEnum, SubscriptionStatusEnum } from './enums';
 import { SubscriptionEntity } from './subscription.entity';
 

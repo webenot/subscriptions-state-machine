@@ -1,7 +1,8 @@
-import { BaseLoggerService } from '@common/logger/base-logger.service';
-import { SqsService } from '@common/sqs/sqs-service';
-import { StripeService } from '@common/stripe';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+
+import { BaseLoggerService } from '../../../common/logger/base-logger.service';
+import { SqsService } from '../../../common/sqs/sqs-service';
+import { StripeService } from '../../../common/stripe';
 
 const logger = new BaseLoggerService('handleWebhook');
 const stripeService = new StripeService({
@@ -16,18 +17,17 @@ export const handleWebhook = async (
   request: APIGatewayProxyEvent,
   _context: Context
 ): Promise<APIGatewayProxyResult> => {
+  const signature = request.headers[STRIPE_SIGNATURE_HEADER] || request.headers[STRIPE_SIGNATURE_HEADER.toLowerCase()];
+
   try {
     if (!request.body) {
       throw new Error('No body in request');
     }
-
-    const signature =
-      request.headers[STRIPE_SIGNATURE_HEADER] || request.headers[STRIPE_SIGNATURE_HEADER.toLowerCase()];
     if (typeof signature !== 'string') {
       throw new TypeError('No Stripe signature in request');
     }
 
-    const event = await stripeService.verifyStripeWebhook(signature, request.body);
+    const event = await stripeService.verifyStripeWebhook(signature, Buffer.from(request.body, 'utf8'));
     logger.info('Handling Stripe event', { event });
 
     await sqsService.sendMessage(JSON.stringify(event));
@@ -38,7 +38,7 @@ export const handleWebhook = async (
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    logger.error(error.message, error.trace, { event: request.body });
+    logger.error(error.message, error.trace, { event: request.body, signature, headers: request.headers });
 
     return {
       statusCode: 500,
