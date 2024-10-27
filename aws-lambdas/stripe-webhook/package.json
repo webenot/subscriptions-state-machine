@@ -9,7 +9,6 @@
     "build": "tsc",
     "start:local": "npm run build && sam local invoke StripeWebhook --env-vars env-local.json -e event.json",
     "deploy": "npm run build && sam deploy --template ./template.yaml --stack-name stripe-webhook-events-example --parameter-overrides $(jq -r 'to_entries[] | \"\\(.key)=\\(.value)\"' env.json)",
-    "deploy-local": "npm run build && sam deploy --template ./template.yaml --stack-name stripe-webhook-events-example --parameter-overrides \"ServicePlatform=aws StripeSecretKey=sk_test_51QD5VuGjiorgriv3adxSV5Ib0PnGQkvDDWGcs96iY9iNVwk9lEwWXhrppfx7SF1DCnJGVhKIgHDTFTq7nZXOeyvc00knEwVxeS StripeWebhookSecret=whsec_LDyxbv8JPhPG7NvdhSMKVWrxBNca8VYo StripeWebhookEventsSQS=https://sqs.us-east-2.amazonaws.com/522230339930/stripe-webhook-events-example-queue\"",
     "deploy-dev": "npm run build && sam deploy --template ./template-dev.yaml --stack-name stripe-webhook-events-example-dev --parameter-overrides $(jq -r 'to_entries[] | \"\\(.key)=\\(.value)\"' env.json)"
   },
   "dependencies": {
