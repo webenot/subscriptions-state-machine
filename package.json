@@ -56,7 +56,7 @@
     "rxjs": "^7.8.1",
     "stripe": "^17.2.1",
     "swagger-ui-express": "^5.0.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.27"
   },
   "devDependencies": {
     "@darraghor/eslint-plugin-nestjs-typed": "^3.21.2",
